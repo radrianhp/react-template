@@ -16,25 +16,75 @@ body{
 
 .container{
     width: 100%;
-    max-width: 1100px;
+    max-width: 1500px;
     margin: 20px auto; 
+    padding: 30px;
+}
+
+.header-content h1{
+    font-size:2em;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+input[type="checkbox"]{
+    outline:2px solid $color;
+    margin-right: 15px;
+    border: none;
+}
+
+.button{
+    float: right;
+    padding: 12px;
+    font-size: 16px;
+    background-color: $color;
+    width: 30%;
+    border: none;
+    border-radius: 5px;
+    margin:30px 0;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
 // Header
-.header-content{
-    font-size:1em;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-.header-img{
-    display: flex;
-    height: 100%;
+header{
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    .img-preview{
-        width: 20%;
+    top: 0;
+
+    .header-group{
+        display: flex;   
+        margin: 50px 0 ;
+
+        .header-language{
+            width: 20%;
+            margin-right: 25px;
+            display: inline-flex;
+            padding: 5px;
+            .label-language{
+                padding: 10px;
+            }
+            .select-react-dropdown{
+                width: 60%;
+            }
+            .icon-setting{
+                padding: 10px;
+                cursor: pointer;
+            }
+        }
+
+        .header-logo{
+            width: 80%;
+            .header-image{
+                display: flex;
+                justify-content: center;
+                align-items: right;
+                margin-left: 300px;
+            }
+            .img-preview{
+                width: 200px;
+            }
+        }
+
     }
 }
 
@@ -46,12 +96,15 @@ body{
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    margin-bottom: 50px;
     .content-account{
         font-size: 1em;
     }
 }
 // Utility
 .stars-label{
+    margin-bottom: 5px;
+    margin-left: 5px;
     font-size: 10px;
     color: red;
 }
@@ -59,16 +112,19 @@ body{
 // Content
 .form-group{
     margin-bottom: 30px;
-    .radio-input{
-        outline:2px solid $color;
-        margin: 0 10px;
-        border: none;
+    .form-label{
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    .span-checkbox{
+        font-weight: 300;
+        margin-right: 20px;
     }
 
     .input-group{
-        border: 2px solid grey;
+        border: 1px solid grey;
         padding:10px;
-        border-radius: 3px;
+        border-radius: 5px;
         outline: none;
         width: 100%;
     }
@@ -76,40 +132,72 @@ body{
     .wrapper-group{
         display: flex;
         width: 100%;
+        gap: 30px;
         .groupleft{
-            height: 50%;
             width: 50%;
-            // background-color: blue;
-            .flag-group{
+            .groupleft-grouping{
                 display: flex;
-                // background-color: red;
-                .flag-dropdown{
-                    width: 10%;
-                }
-                .flag-input{
+                width: 100%;
+                gap:30px;
+                .mobile-flag{
                     width: 30%;
+                    .mobile-dropdown{
+                        width: 100%;
+                    }
+                }  
+                .mobile-number{
+                    width: 80%;
                 }
-            }  
+            }
         }
         .groupright{
             width: 50%;
-            margin-left: 50px;
-            // background-color: yellow;
-
-            .birthday-group{
+            .groupright-grouping{
                 display: flex;
-                flex-wrap: nowrap;
-
+                width: 100%;
+                gap:30px;
+            }
+            .date-group{
+                width: 40%;
             }
         }
     }
+}
+
+p {
+    font-size: 1em;
+    font-weight: 300;
+    font-style: italic;
 }
 
 .item-wrapper{
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
-    margin: 32px 0;
+    margin-top:150px;
+}
+
+.additional-information{
+    display: flex;
+    width: 100%;
+    margin: 30px 0;
+    .content-license {
+        margin-right: 10px;
+    }
+    .item-information-mail{
+        margin-left: auto;
+    }
+    .item-information{
+        display: inline-flex;
+        margin-right: auto;
+    }
+}
+
+.license{
+    display: flex;
+    width: 100%;
+    display: inline-flex;
+    margin: auto;
 }
 
 .card-wrapper{
