@@ -170,11 +170,24 @@ export default function FormItem({ Data, error }) {
 
                 <div className="groupleft-grouping">
                   <div className="mobile-flag">
-                    <Select
-                      options={options}
-                      placeholder="select your country"
-                      className="mobile-dropdown"
-                    />
+                    <select name="" id="" className="input-group">
+                      <option value=""></option>
+                      {/* Flag */}
+                      {dataCountry.map((flag, index) => {
+                        return (
+                          <>
+                            <option
+                              value={flag.name}
+                              key={"flag" + index}
+                              data-content="<img src={flag.flag}  />"
+                            >
+                              {flag.name}
+                            </option>
+                            ;
+                          </>
+                        );
+                      })}
+                    </select>
                   </div>
                   <div className="mobile-number">
                     <input
