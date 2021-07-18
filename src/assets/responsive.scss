@@ -1,4 +1,36 @@
 @media screen and (max-width: 680px) {
+    .header-group{
+        flex-wrap: wrap;
+    }
+    .header-logo{
+        flex-direction:column;
+        flex: auto;
+    }
+    .header-language{
+        flex:auto;
+        display: inline-flex;
+    }
+
+    .wrapper-group{
+        flex-wrap:wrap;
+        .groupleft{
+            flex-direction:column;
+            flex: auto;
+        }
+        .groupright{
+            flex-direction:column;
+            flex: auto;
+        }
+        .groupright-grouping{
+            flex-wrap:wrap;
+            flex-direction:column;
+        }
+    }
+    
+    .additional-information{
+        flex-wrap:wrap;
+        flex-direction:column;
+    }
 
 }
 

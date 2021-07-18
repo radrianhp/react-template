@@ -51,7 +51,7 @@ export default function LicenseForm() {
           />
         </div>
 
-        <div className="">
+        <div className="item-information">
           <span className="content-license">Emailing</span>
           <Switch
             onColor="#86d3ff"
@@ -66,7 +66,7 @@ export default function LicenseForm() {
           />
         </div>
 
-        <div className="item-information-mail">
+        <div className="item-information">
           <span className="content-license-mail">Mailing</span>
           <Switch
             onColor="#86d3ff"

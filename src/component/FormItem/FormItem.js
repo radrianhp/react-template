@@ -228,6 +228,7 @@ export default function FormItem({ Data, error }) {
                   onChange={(e) =>
                     setDetails({ ...details, country: e.target.value })
                   }
+                  className="input-group"
                 >
                   <option value="">Select/Country</option>
                   {dataCountry.map((country, index) => {
