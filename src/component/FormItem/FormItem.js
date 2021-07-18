@@ -4,7 +4,6 @@ import Select from "react-select";
 import Axios from "axios";
 
 //image
-import Logo from "../../assets/logo.png";
 
 //stars
 import { RiStarSFill } from "react-icons/ri";
@@ -13,34 +12,18 @@ import { RiStarSFill } from "react-icons/ri";
 import HeaderForm from "../../parts/HeaderForm/HeaderForm";
 import LicenseForm from "../../parts/LicenseForm/LicenseForm";
 
+//HandleChange
+import FormUse from "../FormItem/FormUse";
+
 export default function FormItem({ Data, error }) {
-  const [details, setDetails] = useState({
-    title: "",
-    lastName: "",
-    firstName: "",
-    flag: "",
-    number: "",
-    address: "",
-    country: "",
-    province: "",
-    email: "",
-    date: "",
-    month: "",
-    year: "",
-  });
+  const { values, handleChange } = FormUse();
+
+  //Checkbox
+  const checkboxItem = ["Mrs", "Ms", "Mdm", "Mr", "Dr"];
+  const [checkedState, setCheckedState] = useState();
+
   const [dataCountry, setDataCountry] = useState([]);
 
-  const options = [
-    {
-      value: "chocolate",
-      label: (
-        <div>
-          <img src={Logo} height="30px" width="30px" />
-          Chocolate
-        </div>
-      ),
-    },
-  ];
   useEffect(() => {
     Axios.get(`https://restcountries.eu/rest/v2/all`)
       .then((result) => {
@@ -55,7 +38,7 @@ export default function FormItem({ Data, error }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    Data(details);
+    Data(values);
   };
 
   return (
@@ -74,50 +57,45 @@ export default function FormItem({ Data, error }) {
             <div className="form-label">
               <label htmlFor="title">Title</label>
             </div>
-
-            <div
-              className="wrapper-checkbox"
-              onChange={(e) =>
-                setDetails({ ...details, title: e.target.value })
-              }
-            >
-              <input
-                type="checkbox"
-                value="Mrs"
-                checked={details.title === "Mrs"}
-              />
-              <span className="span-checkbox"> Mrs</span>
-
-              <input
-                type="checkbox"
-                value="Ms"
-                checked={details.title === "Ms"}
-              />
-              <span className="span-checkbox"> Ms</span>
-              <input
-                type="checkbox"
-                value="Mdm"
-                checked={details.title === "Mdm"}
-              />
-              <span className="span-checkbox"> Mdm</span>
-              <input
-                type="checkbox"
-                value="Mr"
-                checked={details.title === "Mr"}
-              />
-              <span className="span-checkbox"> Mr</span>
-              <input
-                type="checkbox"
-                value="Dr"
-                checked={details.title === "Dr"}
-              />
-              <span className="span-checkbox"> Dr</span>
+            <div className="wrapper-checkbox">
+              {checkboxItem.map((data, index) => {
+                return (
+                  <>
+                    <input
+                      type="checkbox"
+                      name="title"
+                      id={data}
+                      value={data}
+                      key={`title-${index}`}
+                      checked={checkedState}
+                      onChange={handleChange}
+                    />
+                    <span className="span-checkbox">{data}</span>
+                  </>
+                );
+              })}
             </div>
           </div>
-
           {/* identity */}
           <div className="form-group">
             <div className="wrapper-group">
+              <div className="groupright">
+                <div className="form-label">
+                  <label htmlFor="name">
+                    First name
+                    <RiStarSFill className="stars-label" />
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="First name"
+                  className="input-group"
+                  name="firstName"
+                  onChange={handleChange}
+                  value={values.firstName}
+                />
+              </div>
+
               <div className="groupleft">
                 <div className="form-label">
                   <label htmlFor="name">
@@ -130,28 +108,9 @@ export default function FormItem({ Data, error }) {
                   type="text"
                   placeholder="Last name"
                   className="input-group"
-                  onChange={(e) =>
-                    setDetails({ ...details, lastName: e.target.value })
-                  }
-                  value={details.lastName}
-                />
-              </div>
-
-              <div className="groupright">
-                <div className="form-label">
-                  <label htmlFor="name">
-                    First name
-                    <RiStarSFill className="stars-label" />
-                  </label>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Last name"
-                  className="input-group"
-                  onChange={(e) =>
-                    setDetails({ ...details, firstName: e.target.value })
-                  }
-                  value={details.firstName}
+                  name="lastName"
+                  onChange={handleChange}
+                  value={values.lastName}
                 />
               </div>
             </div>
@@ -170,7 +129,12 @@ export default function FormItem({ Data, error }) {
 
                 <div className="groupleft-grouping">
                   <div className="mobile-flag">
-                    <select name="" id="" className="input-group">
+                    <select
+                      name="flag"
+                      id="flag"
+                      className="input-group"
+                      onChange={handleChange}
+                    >
                       <option value=""></option>
                       {/* Flag */}
                       {dataCountry.map((flag, index) => {
@@ -178,7 +142,7 @@ export default function FormItem({ Data, error }) {
                           <>
                             <option
                               value={flag.name}
-                              key={"flag" + index}
+                              key={`flag-${index}`}
                               data-content="<img src={flag.flag}  />"
                             >
                               {flag.name}
@@ -194,10 +158,9 @@ export default function FormItem({ Data, error }) {
                       type="number"
                       placeholder="Mobile phone number"
                       className="input-group"
-                      onChange={(e) =>
-                        setDetails({ ...details, number: e.target.value })
-                      }
-                      value={details.number}
+                      name="number"
+                      onChange={handleChange}
+                      value={values.number}
                     />
                   </div>
                 </div>
@@ -218,10 +181,9 @@ export default function FormItem({ Data, error }) {
               type="text"
               placeholder="Address"
               className="input-group"
-              onChange={(e) =>
-                setDetails({ ...details, address: e.target.value })
-              }
-              value={details.address}
+              name="address"
+              onChange={handleChange}
+              value={values.address}
             />
           </div>
 
@@ -236,17 +198,15 @@ export default function FormItem({ Data, error }) {
                   </label>
                 </div>
                 <select
-                  name=""
-                  id=""
-                  onChange={(e) =>
-                    setDetails({ ...details, country: e.target.value })
-                  }
+                  name="country"
+                  id="country"
+                  onChange={handleChange}
                   className="input-group"
                 >
                   <option value="">Select/Country</option>
                   {dataCountry.map((country, index) => {
                     return (
-                      <option value={country.name} key={`country` + index}>
+                      <option value={country.name} key={`country-${index}`}>
                         {country.name}
                       </option>
                     );
@@ -262,12 +222,11 @@ export default function FormItem({ Data, error }) {
                 </div>
                 <input
                   type="text"
+                  name="province"
                   placeholder="Province/District"
                   className="input-group"
-                  onChange={(e) =>
-                    setDetails({ ...details, province: e.target.value })
-                  }
-                  value={details.province}
+                  onChange={handleChange}
+                  value={values.province}
                 />
               </div>
             </div>
@@ -279,20 +238,17 @@ export default function FormItem({ Data, error }) {
               <div className="groupleft">
                 <div className="form-label">
                   <label htmlFor="">
-                    Email Address{" "}
-                    <i className="stars-label">
-                      <RiStarSFill />
-                    </i>
+                    Email Address
+                    <RiStarSFill className="stars-label" />
                   </label>
                 </div>
                 <input
                   type="text"
+                  name="email"
                   placeholder="Email Address"
                   className="input-group"
-                  onChange={(e) =>
-                    setDetails({ ...details, email: e.target.value })
-                  }
-                  value={details.email}
+                  onChange={handleChange}
+                  value={values.email}
                 />
               </div>
               <div className="groupright">
@@ -306,11 +262,10 @@ export default function FormItem({ Data, error }) {
                     </div>
                     <input
                       type="text"
+                      name="date"
                       className="input-group"
-                      onChange={(e) =>
-                        setDetails({ ...details, date: e.target.value })
-                      }
-                      value={details.date}
+                      onChange={handleChange}
+                      value={values.date}
                     />
                   </div>
                   <div className="month-group">
@@ -322,11 +277,10 @@ export default function FormItem({ Data, error }) {
                     </div>
                     <input
                       type="text"
+                      name="month"
                       className="input-group"
-                      onChange={(e) =>
-                        setDetails({ ...details, month: e.target.value })
-                      }
-                      value={details.month}
+                      onChange={handleChange}
+                      value={values.month}
                     />
                   </div>
 
@@ -340,11 +294,10 @@ export default function FormItem({ Data, error }) {
 
                     <input
                       type="text"
+                      name="year"
                       className="input-group"
-                      onChange={(e) =>
-                        setDetails({ ...details, year: e.target.value })
-                      }
-                      value={details.year}
+                      onChange={handleChange}
+                      value={values.year}
                     />
                   </div>
                 </div>
