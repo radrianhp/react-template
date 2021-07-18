@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
-import Select from "react-select";
 import Axios from "axios";
 
 //image
@@ -20,7 +19,6 @@ export default function FormItem({ Data, error }) {
 
   //Checkbox
   const checkboxItem = ["Mrs", "Ms", "Mdm", "Mr", "Dr"];
-  const [checkedState, setCheckedState] = useState();
 
   const [dataCountry, setDataCountry] = useState([]);
 
@@ -67,7 +65,7 @@ export default function FormItem({ Data, error }) {
                       id={data}
                       value={data}
                       key={`title-${index}`}
-                      checked={checkedState}
+                      checked={values.title === data}
                       onChange={handleChange}
                     />
                     <span className="span-checkbox">{data}</span>
@@ -76,6 +74,7 @@ export default function FormItem({ Data, error }) {
               })}
             </div>
           </div>
+
           {/* identity */}
           <div className="form-group">
             <div className="wrapper-group">
