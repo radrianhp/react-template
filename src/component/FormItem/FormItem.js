@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Axios from "axios";
-
+import Select from "react-select";
+import { DayPicker, MonthPicker, YearPicker } from "react-dropdown-date";
 //image
 
 //stars
@@ -19,8 +20,10 @@ export default function FormItem({ Data, error }) {
 
   //Checkbox
   const checkboxItem = ["Mrs", "Ms", "Mdm", "Mr", "Dr"];
-
   const [dataCountry, setDataCountry] = useState([]);
+
+  //option
+  const [option, setOptions] = useState({ selectedOption: null });
 
   useEffect(() => {
     Axios.get(`https://restcountries.eu/rest/v2/all`)
@@ -28,6 +31,16 @@ export default function FormItem({ Data, error }) {
         // console.log("data API", result.data);
         const responseAPI = result;
         setDataCountry(responseAPI.data);
+
+        const options = responseAPI.data.map((d) => ({
+          value: d.name,
+          label: (
+            <div>
+              <img src={d.flag} height="30px" width="30px" alt={d.name} />
+            </div>
+          ),
+        }));
+        setOptions(options);
       })
       .catch((error) => {
         console.log("error", error);
@@ -128,33 +141,43 @@ export default function FormItem({ Data, error }) {
 
                 <div className="groupleft-grouping">
                   <div className="mobile-flag">
-                    <select
-                      name="flag"
+                    <Select
                       id="flag"
-                      className="input-group"
+                      name="flag"
+                      options={option}
                       onChange={handleChange}
+                      placeholder={"Country"}
+                      value={values.flag}
+                    />
+
+                    {/* 
+                    <select
+                    name="flag"
+                    id="flag"
+                    className="input-group"
+                    onChange={handleChange}
                     >
-                      <option value=""></option>
-                      {/* Flag */}
-                      {dataCountry.map((flag, index) => {
-                        return (
-                          <>
-                            <option
-                              value={flag.name}
-                              key={`flag-${index}`}
-                              data-content="<img src={flag.flag}  />"
-                            >
-                              {flag.name}
-                            </option>
-                            ;
-                          </>
-                        );
-                      })}
-                    </select>
+                    <option value=""></option>
+
+                    {dataCountry.map((flag, index) => {
+                      return (
+                        <>
+                          <option
+                            value={flag.name}
+                            key={`flag-${index}`}
+                            data-content={`<img src=${flag.flag}  />`}
+                          >
+                            {flag.name}
+                          </option>
+                          ;
+                        </>
+                      );
+                    })}
+                    </select> */}
                   </div>
                   <div className="mobile-number">
                     <input
-                      type="number"
+                      type="tel"
                       placeholder="Mobile phone number"
                       className="input-group"
                       name="number"
@@ -259,13 +282,21 @@ export default function FormItem({ Data, error }) {
                         <RiStarSFill className="stars-label" />
                       </label>
                     </div>
-                    <input
+                    <DayPicker
+                      defaultValue={"DD"}
+                      value={values.date}
+                      id="date"
+                      name="date"
+                      onChange={handleChange}
+                      classes="input-group"
+                    />
+                    {/* <input
                       type="text"
                       name="date"
                       className="input-group"
                       onChange={handleChange}
                       value={values.date}
-                    />
+                    /> */}
                   </div>
                   <div className="month-group">
                     <div className="form-label">
@@ -274,13 +305,22 @@ export default function FormItem({ Data, error }) {
                         <RiStarSFill className="stars-label" />
                       </label>
                     </div>
-                    <input
+                    <MonthPicker
+                      defaultValue={"MM"}
+                      short
+                      value={values.month}
+                      onChange={handleChange}
+                      id={"month"}
+                      name={"month"}
+                      classes={"input-group"}
+                    />
+                    {/* <input
                       type="text"
                       name="month"
                       className="input-group"
                       onChange={handleChange}
                       value={values.month}
-                    />
+                    /> */}
                   </div>
 
                   <div className="year-group">
@@ -290,14 +330,22 @@ export default function FormItem({ Data, error }) {
                         <RiStarSFill className="stars-label" />
                       </label>
                     </div>
-
-                    <input
+                    <YearPicker
+                      defaultValue={"YY"}
+                      reverse
+                      value={values.year}
+                      onChange={handleChange}
+                      id={"year"}
+                      name={"year"}
+                      classes={"input-group"}
+                    />
+                    {/* <input
                       type="text"
                       name="year"
                       className="input-group"
                       onChange={handleChange}
                       value={values.year}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>

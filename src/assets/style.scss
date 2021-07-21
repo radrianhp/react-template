@@ -28,10 +28,11 @@ body{
 }
 
 input[type="checkbox"]{
-    outline:2px solid $color;
+    outline:1px solid $color;
     margin-right: 15px;
     border: none;
 }
+
 
 .button{
     float: right;
